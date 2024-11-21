@@ -9,7 +9,7 @@ import updateAffiliationMappings from "@salesforce/apex/AffiliationsSettingsCont
 import deleteAffiliationMapping from "@salesforce/apex/AffiliationsSettingsController.deleteAffiliationMapping";
 import insertAffiliationMappings from "@salesforce/apex/AffiliationsSettingsController.insertAffiliationMappings";
 
-import stgAffiliationsSettingsTitle from "@salesforce/label/c.stgAffiliationsSettingsTitle";
+import stgAffiliationsSettingsTitle from "@salesforce/label/c.stgAffiliationsSettingsNav";
 import afflTypeEnforced from "@salesforce/label/c.afflTypeEnforced";
 import afflTypeEnforcedDescription from "@salesforce/label/c.afflTypeEnforcedDescription";
 import AfflMappingsDescription from "@salesforce/label/c.AfflMappingsDescription";
@@ -55,11 +55,6 @@ export default class affiliationSettings extends LightningElement {
         successMessageForCreate: stgAffiliationsNewSuccess,
         successToast: stgSuccess,
     };
-
-    affiliationsHyperLink =
-        '<a href="https://powerofus.force.com/s/article/EDA-Configure-Affiliations-Settings">' +
-        this.labelReference.tellMeMoreLink +
-        "</a>";
 
     inputAttributeReference = {
         recordTypeValidation: "recordTypeValidation",
@@ -294,10 +289,6 @@ export default class affiliationSettings extends LightningElement {
     }
 
     get affiliationsDesc() {
-        return (
-            this.labelReference.primaryAffiliationMappingsTable.primaryAffiliationsDescription +
-            " " +
-            this.affiliationsHyperLink
-        );
+        return this.labelReference.primaryAffiliationMappingsTable.primaryAffiliationsDescription;
     }
 }

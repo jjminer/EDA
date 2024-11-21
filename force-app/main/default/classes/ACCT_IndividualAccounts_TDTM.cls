@@ -42,6 +42,7 @@ public class ACCT_IndividualAccounts_TDTM extends TDTM_Runnable {
     /*******************************************************************************************************
      * @description The selected Account record type.
      */
+    @TestVisible
     private static ID defaultRecTypeId = UTIL_CustomSettingsFacade.getSettings().Account_Processor__c;
 
     /*****************************************************************************************************************
@@ -181,7 +182,7 @@ public class ACCT_IndividualAccounts_TDTM extends TDTM_Runnable {
             'MailingPostalCode, MailingCountry, MailingLatitude, ' +
             'MailingLongitude, OtherStreet, OtherCity, ' +
             'Other_County__c, OtherState, OtherPostalCode, OtherCountry, ' +
-            'OtherLatitude, OtherLongitude, Deceased__c, Exclude_from_Household_Name__c,';
+            'OtherLatitude, OtherLongitude, Deceased__c, Exclude_from_Household_Name__c, Mailing_Address_Inactive__c,';
 
         if (ADDR_Addresses_UTIL.isStateCountryPicklistsEnabled) {
             dynamicSoql += 'MailingCountryCode, MailingStateCode, OtherCountryCode, OtherStateCode, ';
@@ -189,6 +190,12 @@ public class ACCT_IndividualAccounts_TDTM extends TDTM_Runnable {
 
         if (UserInfo.isMultiCurrencyOrganization()) {
             dynamicSoql += 'CurrencyIsoCode, ';
+        }
+
+        Set<String> objectFields = Schema.SObjectType.Contact.fields.getMap().keySet();
+        Boolean ispersonNameSuffixEnabled = objectFields.contains('suffix');
+        if (ispersonNameSuffixEnabled) {
+            dynamicSoql += 'Suffix, ';
         }
 
         dynamicSoql += 'Phone, Fax FROM Contact WHERE Id IN :newContacts';
@@ -368,7 +375,7 @@ public class ACCT_IndividualAccounts_TDTM extends TDTM_Runnable {
     private void handleInsertProcessing(HandleInsertWrapperLogic insertWrapper, List<Contact> contactsNeedAccounts) {
         DmlWrapper dmlWrapper = new DmlWrapper();
 
-        if (triggerAction == TDTM_Runnable.Action.AfterInsert) {
+        if (triggerAction == TDTM_Runnable.Action.AfterInsert && insertWrapper != null) { 
             //Creates new Account
             if (contactsNeedAccounts.size() > 0) {
                 UTIL_Debug.debug('****Number of Contacts that need Accounts created: ' + contactsNeedAccounts.size());
@@ -490,7 +497,7 @@ public class ACCT_IndividualAccounts_TDTM extends TDTM_Runnable {
         Map<Id, sObject> idToSObjectTobeUpdated = new Map<Id, sObject>();
         List<sObject> duplicateOccurence = new List<sObject>();
 
-        if (triggerAction == TDTM_Runnable.Action.AfterUpdate) {
+        if (triggerAction == TDTM_Runnable.Action.AfterUpdate && updateWrapper != null) {
             //Creates new Account
             if (contactsNeedAccounts.size() > 0) {
                 UTIL_Debug.debug('****Number of Contacts that need Accounts created: ' + contactsNeedAccounts.size());

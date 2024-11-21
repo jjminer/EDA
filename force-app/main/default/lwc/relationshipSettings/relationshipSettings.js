@@ -10,7 +10,7 @@ import createRelationshipLookup from "@salesforce/apex/RelationshipSettingsContr
 import deleteRelationshipLookup from "@salesforce/apex/RelationshipSettingsController.deleteRelationshipLookup";
 
 // Reciprocal Method Custom Labels
-import stgRelationshipSettingsTitle from "@salesforce/label/c.stgRelationshipSettingsTitle";
+import stgRelationshipSettingsTitle from "@salesforce/label/c.stgRelationshipSettingsNav";
 import stgTitleReciMethod from "@salesforce/label/c.stgTitleReciMethod";
 import stgHelpRelReciprocalMethod from "@salesforce/label/c.stgHelpRelReciprocalMethod";
 import stgOptSelect from "@salesforce/label/c.stgOptSelect";
@@ -34,8 +34,6 @@ import stgReciprocalRelNewSuccess from "@salesforce/label/c.stgReciprocalRelNewS
 import stgReciprocalRelDeleteSuccess from "@salesforce/label/c.stgReciprocalRelDeleteSuccess";
 import stgSuccess from "@salesforce/label/c.stgSuccess";
 
-// Articles
-const relationshipsArticle = '<a href="https://powerofus.force.com/EDA-Config-Relationships-Settings">';
 export default class relationshipSettings extends LightningElement {
     isEditMode = false;
     affordancesDisabledToggle = false;
@@ -78,16 +76,12 @@ export default class relationshipSettings extends LightningElement {
         allowAutoCreatedDuplicatesId: "allowAutoCreatedDuplicates",
     };
 
-    get relationshipSettingsHyperLink() {
-        return relationshipsArticle + this.labelReference.tellMeMore + "</a>";
-    }
-
     get relationshipSettingsDesc() {
-        return this.labelReference.reciprocalMethodSettingsDesc + " " + this.relationshipSettingsHyperLink;
+        return this.labelReference.reciprocalMethodSettingsDesc;
     }
 
     get duplicateRelationshipDesc() {
-        return this.labelReference.duplicateRelationshipDesc + " " + this.relationshipSettingsHyperLink;
+        return this.labelReference.duplicateRelationshipDesc;
     }
 
     get affordancesDisabled() {

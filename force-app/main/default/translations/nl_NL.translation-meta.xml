@@ -337,10 +337,6 @@
         <name>stgAccountModelNav</name>
     </customLabels>
     <customLabels>
-        <label>Instellingen voor accountmodel</label>
-        <name>stgAccountModelSettingsTitle</name>
-    </customLabels>
-    <customLabels>
         <label>Beschikbare accountrecordtypen</label>
         <name>stgAccountRecordTypeAvailableListTitle</name>
     </customLabels>
@@ -379,10 +375,6 @@
     <customLabels>
         <label>Adressen</label>
         <name>stgAddressSettingsNav</name>
-    </customLabels>
-    <customLabels>
-        <label>Adresinstellingen</label>
-        <name>stgAddressSettingsTitle</name>
     </customLabels>
     <customLabels>
         <label>Aangepaste naamindeling</label>
@@ -437,10 +429,6 @@
         <name>stgAffiliationsSettingsNav</name>
     </customLabels>
     <customLabels>
-        <label>Instellingen voor affiliaties</label>
-        <name>stgAffiliationsSettingsTitle</name>
-    </customLabels>
-    <customLabels>
         <label>Einddatum affiliatie</label>
         <name>stgAfflCopyProgramEnrollmentEndDate</name>
     </customLabels>
@@ -491,10 +479,6 @@
     <customLabels>
         <label>API-naam: {0}</label>
         <name>stgApiNameLabel</name>
-    </customLabels>
-    <customLabels>
-        <label><!-- Section title for Application Settings --></label>
-        <name>stgApplicationSettingsTitle</name>
     </customLabels>
     <customLabels>
         <label><!-- Label for the Application Window Validation setting --></label>
@@ -801,10 +785,6 @@
         <name>stgContactInformationSettingsNav</name>
     </customLabels>
     <customLabels>
-        <label>Instellingen voor contactgegevens</label>
-        <name>stgContactInformationSettingsTitle</name>
-    </customLabels>
-    <customLabels>
         <label>Meerdere adressen voor contactpersoon toestaan</label>
         <name>stgContactMultiAddressesEnabled</name>
     </customLabels>
@@ -823,10 +803,6 @@
     <customLabels>
         <label>Cursusverbindingen</label>
         <name>stgCourseConnectionsNav</name>
-    </customLabels>
-    <customLabels>
-        <label>Instellingen voor cursusverbindingen</label>
-        <name>stgCourseConnectionsTitle</name>
     </customLabels>
     <customLabels>
         <label>Tekst uit het veld Beschrijving wordt naar het veld Uitgebreide beschrijving in Cursusrecords gekopieerd. Bestaande waarden voor Uitgebreide beschrijving worden niet overschreven. Werk paginalay-outs en andere verwijzingen naar het veld Beschrijving bij wanneer deze update is voltooid.</label>
@@ -953,8 +929,24 @@
         <name>stgErrorSettingsNav</name>
     </customLabels>
     <customLabels>
-        <label>Foutinstellingen</label>
-        <name>stgErrorSettingsTitle</name>
+        <label><!-- Message when the EDA product registry has an incorrect or missing Action value --></label>
+        <name>stgErrorSettingsProductInvalidAction</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Message when the EDA product registry has an incorrect or missing API name --></label>
+        <name>stgErrorSettingsProductInvalidApiVersion</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Message when the product registry has an incorrect or missing class name --></label>
+        <name>stgErrorSettingsProductInvalidClass</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Message when EDA can&apos;t access valid product information --></label>
+        <name>stgErrorSettingsProductInvalidResponse</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Message when EDA cannot activate a release gate --></label>
+        <name>stgErrorReleaseGateActivateErrorResponse</name>
     </customLabels>
     <customLabels>
         <label>Verouderde etniciteitsgegevens</label>
@@ -1645,16 +1637,8 @@
         <name>stgProgramPlanSettingsNav</name>
     </customLabels>
     <customLabels>
-        <label>Instellingen voor programmaplan</label>
-        <name>stgProgramPlanSettingsTitle</name>
-    </customLabels>
-    <customLabels>
         <label>Programma-inschrijvingen</label>
         <name>stgProgramsSettingsNav</name>
-    </customLabels>
-    <customLabels>
-        <label>Instellingen voor programma-inschrijvingen</label>
-        <name>stgProgramsSettingsTitle</name>
     </customLabels>
     <customLabels>
         <label>Lijstinstelling</label>
@@ -1743,10 +1727,6 @@
     <customLabels>
         <label>Relaties</label>
         <name>stgRelationshipSettingsNav</name>
-    </customLabels>
-    <customLabels>
-        <label>Instellingen voor relaties</label>
-        <name>stgRelationshipSettingsTitle</name>
     </customLabels>
     <customLabels>
         <label>Bijwerken</label>
@@ -1935,8 +1915,100 @@
         <name>timeBlockStartTimeMismatch</name>
     </customLabels>
     <customLabels>
+        <label><!-- Label for the Release Management card --></label>
+        <name>stgReleaseManagementCardTitle</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Label for the Release Management page --></label>
+        <name>stgReleaseManagementTitle</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Description of Release Management card --></label>
+        <name>stgReleaseManagementDescription</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Button that launches Release Management tile navigation button text --></label>
+        <name>stgBtnReleaseManagement</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Alt text for button that launches Release Management --></label>
+        <name>stgBtnReleaseManagementA11y</name>
+    </customLabels>
+    <customLabels>
         <label><!-- Message when a Due Date precedes an Open Date --></label>
         <name>stgErrorAppDueDate</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Label for the date when the release must be activated. --></label>
+        <name>stgReleaseGateActivateBy</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Label for the release activation date --></label>
+        <name>stgReleaseGateActivatedOn</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Release gate activate label --></label>
+        <name>stgReleaseGateActivate</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Label for activate release gate button --></label>
+        <name>stgBtnReleaseGateActivate</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Label that indicates that activation is in progress --></label>
+        <name>stgReleaseGateInProgress</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Text for screen reader to indicate a link opens in a new window --></label>
+        <name>stgNewWindowA11y</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Release Gate Activation Confirmation Modal Body --></label>
+        <name>stgReleaseGateActivateModalBody</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Release gate successful activation toast message --></label>
+        <name>stgReleaseGateActivateSuccess</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Release gate in progress activation toast message --></label>
+        <name>stgReleaseGateActivateInProgress</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Release gates progress indicator label --></label>
+        <name>stgReleaseGateProgressIndicatorIncomplete</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Release gates progress indicator when all releases activated --></label>
+        <name>stgReleaseGateProgressIndicatorComplete</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- EDA Winter 22 release gate label --></label>
+        <name>stgReleaseGateEDAWinter22Label</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- EDA Winter 22 release gate description --></label>
+        <name>stgReleaseGateEDAWinter22Description</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- EDA Winter 22 release gate feature description --></label>
+        <name>stgReleaseGateEDAWinter22FeatureDescription</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- EDA release gate feature help label --></label>
+        <name>stgReleaseGateEDAFeatureHelpLabel</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- EDA Spring 22 release gate label --></label>
+        <name>stgReleaseGateEDASpring22Label</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- EDA Spring 22 release gate description --></label>
+        <name>stgReleaseGateEDASpring22Description</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- EDA Spring 22 release gate feature description --></label>
+        <name>stgReleaseGateEDASpring22FeatureDescription</name>
     </customLabels>
     <customTabs>
         <label>Instellingen voor Education Cloud</label>

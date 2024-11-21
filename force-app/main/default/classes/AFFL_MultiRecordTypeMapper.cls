@@ -80,6 +80,11 @@ public virtual with sharing class AFFL_MultiRecordTypeMapper {
     public Map<String, String> accRecTypeLabelToAPI;
 
     /*******************************************************************************************************
+     * @description Map of Account Record Type Labels in English to User Language Label
+     ********************************************************************************************************/
+    private Map<String, String> accRecTypeEnglishToTranslation;
+
+    /*******************************************************************************************************
      * @description Constructor that initializes class properties.
      ********************************************************************************************************/
     public AFFL_MultiRecordTypeMapper() {
@@ -98,6 +103,9 @@ public virtual with sharing class AFFL_MultiRecordTypeMapper {
         // Map of Account RecordType Label To API
         //NOTE: Consider a refactor relative to case sensitivity
         this.accRecTypeLabelToAPI = this.getAccRecTypeLabelToAPIMap();
+
+        // Map of Account RecordType English label to Translated Label
+        this.accRecTypeEnglishToTranslation = this.getAccRecTypeEnglishLabelToTranslation();
 
         //Note: Given the supportable number of records for affiliation mappings, having multiple small loops
         //is an acceptable and negligible performance hit so we can apply a separation of concerns for future refactoring.
@@ -161,6 +169,23 @@ public virtual with sharing class AFFL_MultiRecordTypeMapper {
             labelsnames.put(field.Name, field.DeveloperName);
         }
         return labelsnames;
+    }
+
+    /**
+     * @description Returns a map of the English label to the current running user's language
+     */
+    @TestVisible
+    private Map<String, String> getAccRecTypeEnglishLabelToTranslation() {
+        Map<String, String> labels = new Map<String, String>();
+
+        for (String englishLabel : accRecTypeLabelToAPI.keySet()) {
+            labels.put(
+                englishLabel,
+                accountRecordTypeInfosByDeveloperName.get(accRecTypeLabelToAPI.get(englishLabel)).getName()
+            );
+        }
+
+        return labels;
     }
 
     /**
@@ -282,27 +307,35 @@ public virtual with sharing class AFFL_MultiRecordTypeMapper {
      ********************************************************************************************************/
     public String getKeyAfflFieldByAccRecordType(ID recordTypeId) {
         for (String recTypeName : primaryAfflFieldInMappingsByAccRecType.keySet()) {
+            String primaryAfflField = null;
             if (Schema.Sobjecttype.Account.getRecordTypeInfosByName().get(recTypeName) != null) {
                 ID rcId = Schema.Sobjecttype.Account.getRecordTypeInfosByName().get(recTypeName).getRecordTypeId();
                 if (rcId == recordTypeId) {
-                    String fieldLabel = primaryAfflFieldInMappingsByAccRecType.get(recTypeName);
-                    String fieldName = contactFieldAPINameByLabel.get(fieldLabel);
-                    return fieldName;
+                    primaryAfflField = primaryAfflFieldInMappingsByAccRecType.get(recTypeName);
                 }
             } else if (Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName().get(recTypeName) != null) {
                 ID rcId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName()
                     .get(recTypeName)
                     .getRecordTypeId();
                 if (rcId == recordTypeId) {
-                    String fieldLabel = primaryAfflFieldInMappingsByAccRecType.get(recTypeName);
-                    String fieldName = contactFieldAPINameByLabel.get(fieldLabel);
-                    return fieldName;
+                    primaryAfflField = primaryAfflFieldInMappingsByAccRecType.get(recTypeName);
                 }
             } else {
                 //Setup null pointer error message
                 String[] params = new List<String>{ recTypeName };
                 String nullPointerMsg = String.format(Label.afflNullPointerError, params);
                 throw new AfflNullPointerException(nullPointerMsg);
+            }
+            if (primaryAfflField != null) {
+                //Trying to find the mapped field by the field label first
+                //Some customers might still have field labels stored in Affl_Mappings__c.Primary_Affl_Field__c
+                String fieldName = contactFieldAPINameByLabel.get(primaryAfflField);
+                if (fieldName != null) {
+                    return fieldName;
+                } else {
+                    //If not found primaryAfflField should contain the field api name
+                    return primaryAfflField;
+                }
             }
         }
         return null;
@@ -321,8 +354,14 @@ public virtual with sharing class AFFL_MultiRecordTypeMapper {
             return false;
         }
 
+        // we need to use the "english to translation" map since Affiliation_Type__c is a formula field
+        // and formula fields aren't translated into the running user's language.
+        if (!accRecTypeEnglishToTranslation.containsKey(affiliation.Affiliation_Type__c)) {
+            return false;
+        }
+
         Affl_Mappings__c affiliationMapping = primaryAffiliationMappingsByAccountRecordTypeName.get(
-            affiliation.Affiliation_Type__c
+            accRecTypeEnglishToTranslation.get(affiliation.Affiliation_Type__c)
         );
 
         if (affiliationMapping?.Auto_Program_Enrollment__c != true) {
